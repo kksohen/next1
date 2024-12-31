@@ -1,14 +1,13 @@
 //route groups는 폴더이름 생성시 ()로 감싸줘야함
 import Movie from "../../components/movie";
 import styles from "../../styles/home.module.css";
+import { API_URL } from "../constants";
 
 export const metadata = {
     title: 'Home',
 };
 
 //next.js fetch 방식
-export const API_URL = "https://nomad-movies.nomadcoders.workers.dev/movies";
-
 async function getMovies(){
     return fetch(API_URL).then((res) => res.json());
 };
