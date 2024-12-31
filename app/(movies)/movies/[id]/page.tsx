@@ -4,21 +4,21 @@ import { Suspense } from "react";
 import MovieInfo, { getMovie } from "../../../../components/movie-info";
 import MovieVideos from "../../../../components/movie-videos";
 
-interface IParams {
-  params: {
-    id: string;
-  };
-};
+type IParams = Promise<{id: string;}>;
 
 /* 다이나믹 라우팅에 맞추어야 하는 동적인 타이틀 가능하게 해주는 함수 */
-export async function generateMetadata({params: {id}}: IParams) {
+export async function generateMetadata(props: {params: IParams}) {
+  const params = await props.params;
+  const id = params.id;
   const movie = await getMovie(id);
   return {
   title: movie.title,
   };
 };
 
-export default async function MovieDetail({params: {id}}: IParams) {
+export default async function MovieDetail(props:{params: IParams}) {
+  const params = await props.params;
+  const id = params.id;
     /* 병렬적으로 데이터 패치할 것ㅇ 
     const [movie, videos] = await Promise.all([getMovie(id), getVideos(id)]);
     */
